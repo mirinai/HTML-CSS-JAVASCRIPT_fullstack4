@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <title>회원가입 프랙티스</title>
+    <link rel="stylesheet" href="./CSS/signUpEx1.css" />
+  </head>
+  <body>
+    <!-- 	<h2 style="text-align: center">회원 가입</h2> -->
+    <!-- 	<form method="post" action="./signUpEx1Result.html"> -->
+    <!-- 		<div> -->
+    <!-- 			<label for="userid">ID</label>  -->
+    <!-- 			<input id="userid" name="userid" type="text" minlength="4" maxlength="12">	 -->
+    <!-- 		</div> -->
+    <!-- 		<div> -->
+    <!-- 			<label for="password1">password</label>  -->
+    <!-- 			<input id="password1" name="password1" type="password" minlength="4" maxlength="12"> -->
+    <!-- 		</div> -->
+    <!-- 		<div> -->
+    <!-- 			<label for="password2">confirm password</label>  -->
+    <!-- 			<input id="password2" name="password2" type="password" minlength="4" maxlength="12">		 -->
+    <!-- 		</div> -->
+
+    <!-- 		<div> -->
+    <!-- 			<label for="name">name</label>  -->
+    <!-- 			<input id="name" name="name" type="text">		 -->
+    <!-- 		</div> -->
+    <!-- 		<div> -->
+    <!-- 			<label for="phone">phone</label> -->
+    <!-- 			<input id="phone1" name="phone" type="tel"> -->
+    <!-- 			 - <input id="phone2" name="phone" type="tel"> -->
+    <!-- 			 - <input id="phone3" name="phone" type="tel"> -->
+    <!-- 		</div> -->
+    <!-- 		<div> -->
+    <!-- 			<label for="address">address</label>  -->
+    <!-- 			<input id="address" name="address" type="text">		 -->
+    <!-- 		</div>	 -->
+
+    <!-- 		<div> -->
+    <!-- 			<label for="birthday">birthday</label>  -->
+    <!-- 			<input id="birthday" name="birthday" type="text">		 -->
+    <!-- 		</div> -->
+    <!-- 		<div class="checkboxes"> -->
+    <!-- 			<label for="job1">student</label>  -->
+    <!-- 			<input id="job1" name="job1" type="checkbox"> -->
+    <!-- 			<label for="job2">worker</label>  -->
+    <!-- 			<input id="job2" name="job2" type="checkbox">		 -->
+    <!-- 			<label for="job3">business</label>  -->
+    <!-- 			<input id="job3" name="job3" type="checkbox">		 -->
+    <!-- 			<label for="job4">etc</label>  -->
+    <!-- 			<input id="job4" name="job4" type="checkbox"> -->
+    <!-- 			<input id="write-job" name="job4" type="text" disabled>						 -->
+
+    <!-- 		</div> -->
+
+    <!-- 	</form> -->
+    
+    <!-- 
+    	<form name="join" onsubmit="return abc();" action="./memberOk.html" method="post">
+     -->
+    
+    <h2 style="text-align: center">회원 가입</h2>
+    <form method="post" onsubmit="return validate()" action="./signUpEx1Result.html">
+      <table>
+        <thead>
+          <tr>
+            <th colspan="2">회원 기본 정보</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><label for="userid">ID</label></td>
+            <td>
+              <input
+                id="userid"
+                name="userid"
+                type="text"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td><label for="password1">비밀번호</label></td>
+            <td>
+              <input
+                id="password1"
+                name="password1"
+                type="password"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td><label for="password2">비밀번호 확인</label></td>
+            <td>
+              <input
+                id="password2"
+                name="password2"
+                type="password"
+                minlength="4"
+                maxlength="12"
+
+              />
+            </td>
+          </tr>
+          <tr>
+            <td><label for="name">이름</label></td>
+            <td><input id="name" name="name" type="text"/></td>
+          </tr>
+          <tr>
+            <td><label for="phone1">전화번호</label></td>
+            <td>
+              <input id="phone1" name="phone1" type="tel"/> -
+              <input id="phone2" name="phone2" type="tel"/> -
+              <input id="phone3" name="phone3" type="tel"/>
+              <p></p>
+            </td>
+          </tr>
+          <tr>
+            <td><label for="address">주소</label></td>
+            <td><input id="address" name="address" type="text"/></td>
+          </tr>
+          <tr>
+            <td><label for="birthday">생일</label></td>
+            <td>
+              <input id="birthday" name="birthday" type="date"/>
+            </td>
+          </tr>
+          <tr>
+            <td class="jobs-td">직업</td>
+            <td class="checkboxes">
+              <div class="job-options">
+                <label for="job1"
+                  ><input
+                    id="job1"
+                    name="job"
+                    type="checkbox"
+                    value="student"
+                  />
+                  학생</label
+                >
+                <label for="job2"
+                  ><input id="job2" name="job" type="checkbox" value="worker" />
+                  근로자</label
+                >
+                <label for="job3"
+                  ><input
+                    id="job3"
+                    name="job"
+                    type="checkbox"
+                    value="business"
+                  />
+                  사업가</label
+                >
+                <label for="job4"
+                  ><input id="job4" name="job" type="checkbox" value="etc" />
+                  기타</label
+                >
+                <input
+                  id="job4"
+                  name="write-job"
+                  type="text"
+                  placeholder="기타 입력"
+                  disabled
+                />
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td><label for="email">email</label></td>
+            <td><input id="email" name="email" type="email"/></td>
+          </tr>
+          <tr>
+            <td><label for="introduction">introduction</label></td>
+            <td>
+              <textarea
+                id="introduction"
+                name="introduction"
+                rows="10"
+                cols="50"
+              ></textarea>
+            </td>
+          </tr>
+        </tbody>
+        <tbody>
+          <tr>
+            <td class="btns" colspan="2">
+              <button type="submit">회원가입</button>
+              <button type="reset">다시 작성</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </form>
+  </body>
+</html>
