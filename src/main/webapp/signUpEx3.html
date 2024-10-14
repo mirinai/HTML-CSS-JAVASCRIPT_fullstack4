@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>회원가입 form버전</title>
+<link rel="stylesheet" href="./CSS/signUpEx2.css">
+<script src="https://code.jquery.com/jquery-3.7.1.js"
+	integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+	crossorigin="anonymous"></script>
+<link rel="stylesheet"
+	href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+</head>
+<body>
+	<h2 style="text-align: center">회원 가입</h2>
+	<form name="join" method="post" onsubmit="return validate()"
+		action="./signUpEx2Result.html">
+		<table>
+			<thead>
+				<tr>
+					<th colspan="2">회원 기본 정보</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td><label for="userid">ID</label></td>
+					<td><input id="userid" name="userid" type="text" /></td>
+				</tr>
+				<tr>
+					<td><label for="password">비밀번호</label></td>
+					<td><input id="pw" name="password" type="password" /></td>
+				</tr>
+				<tr>
+					<td><label for="password_check">비밀번호 확인</label></td>
+					<td><input id="pw_check" name="password_check" type="password"
+						minlength="4" maxlength="12" /></td>
+				</tr>
+				<tr>
+					<td><label for="name">이름</label></td>
+					<td><input id="name" name="name" type="text" /></td>
+				</tr>
+				<tr>
+					<td><label for="phonenum1">전화번호</label></td>
+					<td><input id="phonenum1" name="phonenum1" type="tel" /> - <input
+						id="phonenum2" name="phonenum2" type="tel" /> - <input
+						id="phonenum3" name="phonenum3" type="tel" />
+						<p></p></td>
+				</tr>
+				<tr>
+					<td><label for="address">주소</label></td>
+					<td><input id="address" name="address" type="text" /></td>
+				</tr>
+				<tr>
+					<td><label for="birthday">생일</label></td>
+					<td><input id="birthday" name="birthday" type="text" /></td>
+				</tr>
+				<tr>
+					<td class="jobs-td">직업</td>
+					<td class="checkboxes">
+						<div class="job-options">
+							<label for="job1"><input id="job1" name="job"
+								type="checkbox" value="student" /> 학생</label> <label for="job2"><input
+								id="job2" name="job" type="checkbox" value="worker" /> 근로자</label> <label
+								for="job3"><input id="job3" name="job" type="checkbox"
+								value="business" /> 사업가</label> <label for="job4"><input
+								id="job4" name="job" type="checkbox" value="etc" /> 기타</label> <input
+								id="job4" name="write-job" type="text" placeholder="기타 입력"
+								disabled />
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td><label for="email">email</label></td>
+					<td><input id="email" name="email" type="text" /></td>
+				</tr>
+				<tr>
+					<td><label for="introduction">introduction</label></td>
+					<td><textarea id="introduction" name="introduction" rows="10"
+							cols="50"></textarea></td>
+				</tr>
+			</tbody>
+			<tbody>
+				<tr>
+					<td class="btns" colspan="2">
+						<button type="submit">회원가입</button>
+						<button type="reset">다시 작성</button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</form>
+	<!-- 유효성 검사를 위한 JavaScript 코드 -->
+	<script>
+	// 'join'이라는 이름의 폼을 변수 'f'에 할당
+		const f = document.forms["join"];
+		 // ID 유효성 검사 정규식: 영문 대소문자와 숫자로 시작하며, 4~12자
+		const regID = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z]){4,13}$/;
+		// 비밀번호 유효성 검사 정규식: 특수문자를 포함한 4~12자
+		const regPW = /^[A-Za-z\d@#$%^&*()\-_=+{};:,<.>/?[\]\\|~`!]{4,13}$/;
+		// 이메일 유효성 검사 정규식
+		const regEmail = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
+		// 전화번호 유효성 검사 정규식: 특정 번호로 시작
+		const regPhnNum = /^(010|011|017|018|019)/;
+		/**
+         * 폼 제출 시 실행되는 유효성 검사 함수
+         * 모든 검증을 통과하면 true를 반환하여 폼을 제출하고,
+         * 그렇지 않으면 경고창을 띄우고 false를 반환하여 제출을 막습니다.
+         */
+		const validate = () => {
+			// ID 유효성 검사
+		    if (!regID.test(f.userid.value)) {
+		        alert("ID를 잘못 입력하셨습니다.");
+		        return false;
+		    }// 비밀번호 유효성 검사 및 비밀번호 확인 일치 여부 검사
+		    else if ((!regPW.test(f.password.value)) || (f.password.value !== f.password_check.value)) {
+		        alert("비밀번호를 잘못 입력하셨거나 비밀번호가 일치하지 않습니다.");
+		        return false;
+		    }// 이메일 유효성 검사
+		    else if (!regEmail.test(f.email.value)) {
+		        alert("이메일을 잘못 입력하셨습니다.");
+		        return false;
+		    } // 전화번호 유효성 검사 
+		    else if (!regPhnNum.test(f.phonenum1.value)) {
+		        alert("전화번호를 잘못 입력하셨습니다.");
+		        return false;
+		    }
+		 // 모든 유효성 검사를 통과하면 폼 제출을 허용
+		    return true;
+		};
+		 $(document).ready(function() {
+	            $("#birthday").datepicker({
+	                dateFormat: "yy-mm-dd", // 날짜 형식 설정 (예: 2024-10-14)
+	                changeMonth: true,      // 월 변경 드롭다운 활성화
+	                changeYear: true,       // 년 변경 드롭다운 활성화
+	                yearRange: "1900:2024", // 년 범위 설정 (필요에 따라 조정)
+	                showAnim: "slideDown",  // 애니메이션 효과 설정
+	                maxDate: 0              // 오늘 이후 날짜 선택 불가
+	            });
+	        });
+	</script>
+
+</body>
+</html>
