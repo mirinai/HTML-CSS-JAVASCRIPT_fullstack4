@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>signUpEx4</title>
+<style>
+h2 {
+	text-align: center
+}
+
+form {
+	width: 80%;
+	margin: 20px auto;
+	max-width: 800px;
+	background-color: white;
+	border: 2px solid #000;
+}
+
+table {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+table>thead {
+	width: 100%;
+	background-color: rgb(0, 0, 255);
+	color: white;
+	text-align: center;
+}
+
+table>tbody {
+	width: 100%;
+	text-align: left;
+}
+
+tbody tr {
+	border: 1px solid black;
+}
+
+tbody td {
+	border: 1px solid black;
+}
+
+.btns {
+	text-align: center
+}
+</style>
+<script src="https://code.jquery.com/jquery-3.7.1.js"
+	integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+	crossorigin="anonymous"></script>
+<!-- jQuery UI CDN -->
+<link rel="stylesheet"
+	href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+</head>
+<body>
+	<h2>회원가입</h2>
+	<form name="join" method="post" onsubmit="return validate()"
+		action="./signUpEx2Result.html">
+		<table>
+			<thead>
+				<tr>
+					<td colspan="2">회원 기본 정보</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td><label for="userid">ID</label></td>
+					<td><input id="id" name="userid" type="text"></td>
+				</tr>
+				<tr>
+					<td><label for="password">password</label></td>
+					<td><input id="pw" name="password" type="password"></td>
+				</tr>
+				<tr>
+					<td><label for="check_password">check password</label></td>
+					<td><input id="ck_pw" name="check_password" type="password"></td>
+				</tr>
+				<tr>
+					<td><label for="name">name</label></td>
+					<td><input id="name" name="name" type="text"></td>
+				</tr>
+				<tr>
+					<td><label for="phoneNum1">phone number</label></td>
+					<td><input id="phoneNum1" name="phoneNum1" type="tel">
+						<input id="phoneNum2" name="phoneNum2" type="tel"> <input
+						id="phoneNum3" name="phoneNum3" type="tel"></td>
+				</tr>
+				<tr>
+					<td><label for="address">address</label></td>
+					<td><input id="address" name="address" type="text"></td>
+				</tr>
+				<tr>
+					<td><label for="birthday">birthday</label></td>
+					<td><input id="birthday" name="birthday" type="text"></td>
+				</tr>
+				<tr>
+					<td>job</td>
+					<td>
+						<div class="job-div">
+							<label for="job1">학생</label> <input name="job1" id="job1"
+								type="checkbox"> <label for="job2">직장인</label> <input
+								name="job2" id="job2" type="checkbox"> <label for="job3">자영업</label>
+							<input name="job3" id="job3" type="checkbox"> <label
+								for="job4">기타</label> <input name="job4" id="job4"
+								type="checkbox"> <input name="job4" id="job4"
+								type="text" disabled="disabled">
+
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td><label for="email">email</label></td>
+					<td><input id="email" name="email" type="text"></td>
+				</tr>
+				<tr>
+					<td><label for="intruduction">intruduction</label></td>
+					<td><textarea id="intruduction" name="intruduction"></textarea>></td>
+				</tr>
+				<tr>
+					<td class="btns" colspan="2">
+						<button type="submit">submit</button>
+						<button type="reset">reset</button>
+					</td>
+				</tr>
+			</tbody>
+
+		</table>
+	</form>
+
+	<script>
+		const regID = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z]){4,13}$/;
+
+		const regPW = /^[A-Za-z\d@#$%^&*()\-_=+{};:,<.>/?[\]\\|~`!]{4,13}$/;
+
+		const regEmail = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
+
+		const regPhnNum = /^(010|011|017|018|019)/;
+
+		const f = document.forms["join"];
+		
+		const validate = () =>{
+			if(!regID.test(f.userid.value)){
+				window.alert("id 잘못됨")
+				return false;
+			}
+			else if((!regPW.test(f.password.value)) || (f.password.value!==f.check_password.value)){
+				window.alert("비밀번호 잘못됨")
+				return false;
+			}
+			else if (!regEmail.test(f.email.value)){
+				window.alert("이메일 잘못됨")
+				return false;
+			}
+			else if(!regPhnNum.test(f.phoneNum1.value)){
+				window.alert("전화번호 잘못됨")
+				return false
+			}
+			return true;
+		}
+		
+		
+		$(document).ready(function(){
+// 			const currentYear = new Date().getFullYear();
+// 			 $("#birthday").datepicker($.datepicker.regional["ko"]);
+			$("#birthday").datepicker({
+				dateFormat: "yy-mm-dd",
+// 				showOn:both,
+// 				changeMonth:true,
+// 				changeYear:true,
+// 				yearRange: "1900:" + currentYear, // 동적으로 현재 년도 설정
+// 		        showAnim: "slideDown",
+				
+			});
+		});
+		
+		
+	</script>
+</body>
+</html>
