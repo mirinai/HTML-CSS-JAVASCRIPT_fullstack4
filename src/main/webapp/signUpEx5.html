@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://code.jquery.com/jquery-3.7.1.js"
+	integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+	crossorigin="anonymous"></script>
+
+<!-- jQuery UI CDN -->
+<link rel="stylesheet"
+	href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+<style>
+h2 {
+	text-align: center;
+}
+
+form {
+	width: 80%;
+	margin: 20px auto;
+	max-width: 800px;
+}
+
+table {
+	border: 1px solid black;
+	border-collapse: collapse;
+}
+
+table tr {
+	border: 1px solid black;
+}
+
+table td {
+	border: 1px solid black;
+}
+
+thead {
+	background-color: skyblue;
+	color: white;
+}
+
+thead>tr>td {
+	text-align: center;
+	padding: 10px 0;
+}
+
+tbody>tr>td:first-child {
+	text-align: center;
+}
+
+.select-job>div {
+	display: inline-block;
+}
+</style>
+</head>
+<body>
+
+	<h2>회원가입</h2>
+	<form method="post" name="join" onsubmit="return validate()"
+		action="./screen_after_test_signUp">
+		<table>
+			<thead>
+				<tr>
+					<td colspan="2">회원 가입 정보</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td><label for="id">ID</label></td>
+					<td><input id="id" name="id" type="text"> 라틴문자 대소문과
+						숫자를 4자리에서 12자리 사이로 넣으세요</td>
+				</tr>
+				<tr>
+					<td><label for="pw">password</label></td>
+					<td><input id="pw" name="pw" type="password"> 라틴문자
+						대소문과 숫자를 4자리에서 12자리 사이로 넣으세요</td>
+				</tr>
+				<tr>
+					<td><label for="pw_check">check password</label></td>
+					<td><input id="pw_check" name="pw_check" type="password">
+					</td>
+				</tr>
+				<tr>
+					<td><label for="name">name</label></td>
+					<td><input id="name" name="name" type="text"></td>
+				</tr>
+				<tr>
+					<td><label for="address">address</label></td>
+					<td><input id="address" name="address" type="text"></td>
+				</tr>
+				<tr>
+					<td><label for="phoneNum1">phone number</label></td>
+					<td><input id="phoneNum1" name="phoneNum1" type="text"
+						placeholder="(010|011|017|018|019)"> - <input
+						id="phoneNum2" name="phoneNum2" type="text"> - <input
+						id="phoneNum3" name="phoneNum3" type="text"></td>
+				</tr>
+				<tr>
+					<td>job</td>
+					<td class="select-job">
+						<div>
+							<label for="student">student</label> 
+							<input id="student"
+								name="student" class="chk" type="checkbox" onclick="clickOneCheckBox(this)">
+						</div>
+						<div>
+							<label for="worker">worker</label> <input id="worker"
+								name="worker" class="chk" type="checkbox" onclick="clickOneCheckBox(this)">
+						</div>
+						<div>
+							<label for="business">business</label> <input id="business"
+								name="business" class="chk" type="checkbox" onclick="clickOneCheckBox(this)">
+						</div>
+						<div>
+							<label for="etc">etc</label> 
+							<input id="etc" name="etc" class="chk" type="checkbox" onclick="clickOneCheckBox(this)"> 
+							<input id="input-job" type="text"
+								disabled="disabled">
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td><label for="birthday">birthday</label></td>
+					<td><input id="birthday" name="birthday" type="text">
+					</td>
+				</tr>
+				<tr>
+					<td><label for="email">email</label></td>
+					<td><input id="email" name="email" type="text"></td>
+				</tr>
+				<tr>
+					<td><label for="introduction">introduction</label></td>
+					<td><textarea id="introduction" name="introduction" cols="28"
+							rows="5"></textarea></td>
+				</tr>
+				<tr>
+					<td colspan="2"><input type="submit" placeholder="submit">
+						<input type="reset" placeholder="reset"></td>
+				</tr>
+			</tbody>
+		</table>
+	</form>
+	<script>
+		const regID = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z]){4,13}$/;
+
+// 		const regPW = /^[A-Za-z\d@#$%^&*()\-_=+{};:,<.>/?[\]\\|~`!]{4,13}$/;
+		const regPW = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z]){4,13}$/;
+		const regEmail = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
+
+		const regPhnNum = /^(010|011|017|018|019)/;
+		
+		const regPhnNum_2 = /^[0-9]{3,4}$/
+		const regPhnNum_3 = /^[0-9]{4}$/
+		
+		const ID = document.querySelector('#id');
+		const pw = document.getElementById('pw');
+		const pw_ch = document.getElementById('pw_check');
+		const ph_num1 = document.getElementById('phoneNum1');
+		const ph_num2 = document.getElementById('phoneNum2');
+		const ph_num3 = document.getElementById('phoneNum3');
+		const email = document.getElementById('email');
+		
+		const etc = document.querySelector(`#etc`);
+		
+		const inputJob = document.getElementById('input-job');
+		
+		const validate = () =>{
+			if(!regID.test(ID.value)){
+				window.alert("id를 잘못 입력함");
+				return false;
+			}
+			else if(!regPW.test(pw.value)){
+				window.alert("비밀번호를 잘못 입력함");
+				return false;
+			}
+			else if (pw.value!==pw_ch.value){
+				window.alert("첫번째 비밀번호와 두번째 비밀번호가 다름")
+				return false;
+			}
+			else if (!regPhnNum.test(ph_num1.value)){
+				window.alert("전화번호가 잘못 됨");
+				return false;
+			}
+			else if (!regPhnNum_2.test(ph_num2.value)){
+				window.alert("전화번호가 잘못 됨");
+				return false;
+			}
+			else if (!regPhnNum_3.test(ph_num3.value)){
+				window.alert("전화번호가 잘못 됨");
+				return false;
+			}
+			else if (!regEmail.test(email.value)){
+				window.alert("email이 잘못 됨");
+				return false;
+			}
+			
+			return true;
+		}
+		
+		etc.addEventListener('click',function(){
+			if(etc.checked){
+				inputJob.removeAttribute('disabled');
+			}
+			else{
+				inputJob.setAttribute('disabled','disabled');
+			}
+		})
+		
+		function clickOneCheckBox(element){
+			const checkboxes = document.querySelectorAll(".chk");
+			
+			checkboxes.forEach((v)=>{
+				v.checked = false;
+			})
+			element.checked=true;
+			// "기타" 체크박스가 아닌 경우 input-job을 비활성화
+			 if (element.id !== "etc") {
+		            inputJob.setAttribute('disabled', 'disabled');
+		            inputJob.value="";  // 기타가 아니면 체크박스의 내용을 없애기
+		        }
+		}
+
+		
+		// onclick="clickOneCheckBox(element)"로 넣고 싶을 때
+// 		// 각 체크박스에 이벤트 리스너를 추가
+// 		document.querySelectorAll('.chk').forEach((checkbox) => {
+// 		    checkbox.addEventListener('click', function(event) {
+// 		        const element = event.target; // 클릭된 요소를 event.target으로 참조
+// 		        clickOneCheckBox(element);
+// 		    });
+// 		});
+		
+		$(document).ready(function(){
+			$("#birthday").datepicker({
+				dateFormat: "yy-mm-dd",
+				changeYear:true,
+				changeMonth:true,
+				showAnim: "slideDown",
+				yearRange: "-100:+0",
+				showMonthAfterYear:true,
+				monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
+// 				monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
+				buttonImage: "http://jqueryui.com/resources/demos/datepicker/images/calendar.gif",
+				buttonImageOnly: true
+			});
+		});
+		
+		
+	</script>
+</body>
+</html>
