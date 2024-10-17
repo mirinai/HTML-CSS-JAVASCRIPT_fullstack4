@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://code.jquery.com/jquery-3.7.1.js"
+	integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+	crossorigin="anonymous"></script>
+
+<!-- jQuery UI CDN -->
+<link rel="stylesheet"
+	href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+<style>
+h2 {
+	text-align: center;
+}
+
+form {
+	width: 80%;
+	margin: 20px auto;
+	max-width: 1000px;
+}
+
+table {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+thead {
+	text-align: center;
+	background-color: navy;
+	color:white;
+	font-size: large;
+	
+}
+
+thead td {
+	border: 1px solid black;
+	padding:10px 0;
+}
+
+tbody {
+	margin: 0;
+}
+
+tbody tr td {
+	border: 1px solid black;
+}
+
+tbody td:first-child {
+	text-align: center;
+}
+
+.shorten {
+	width: 80px;
+}
+
+.to_line {
+	display: flex;
+	justify-content:flex-start;
+	border:0;
+}
+.to_line div{
+	margin-left: 20px;
+}
+
+</style>
+</head>
+<body>
+	<h2>회원가입</h2>
+	<form method="post" action="./afterTestSignUp"
+		onsubmit="return validate()" name="join">
+		<table>
+			<thead>
+				<tr>
+					<td colspan="2">회원가입 정보</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td><label for="id">ID</label></td>
+					<td><input id="id" name="id" type="text"></td>
+				</tr>
+				<tr>
+					<td><label for="pw"></label>password</td>
+					<td><input id="pw" name="pw" type="password"></td>
+				</tr>
+				<tr>
+					<td><label for="pw_ch"></label>check password</td>
+					<td><input id="pw_ch" name="pw_ch" type="password"></td>
+				</tr>
+				<tr>
+					<td><label for="tel_num1">telephone</label></td>
+					<td><input class="shorten" id="tel_num1" name="tel_num1"
+						type="text"> - 
+						<input class="shorten" id="tel_num2"
+						name="tel_num2" type="text"> - 
+						<input class="shorten"
+						id="tel_num3" name="tel_num3" type="text"> 앞 자리는 010, 011, 017, 018, 019로 입력하기</td>
+
+				</tr>
+				<tr>
+					<td><label for="birthday">birthday</label></td>
+					<td><input id="birthday" name="birthday" type="text"></td>
+				</tr>
+				<tr id="job-select">
+					<td><label for="job">job</label></td>
+					<td class="to_line">
+						<div>
+							<label for="job1">학생</label> <input id="job1" name="job1"
+								type="checkbox">
+						</div>
+						<div>
+							<label for="job2">직장인</label> <input id="job2" name="job2"
+								type="checkbox">
+						</div>
+						<div>
+							<label for="job3">자영업</label> <input id="job3" name="job3"
+								type="checkbox">
+						</div>
+						<div>
+							<label for="job4">기타</label> <input id="job4" name="job4"
+								type="checkbox"> <input id="job4-etc" name="job4-etc"
+								type="text" disabled="disabled">
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td><label for="email">email</label></td>
+					<td><input id="email" name="email" type="text"> ex) abc@abc.com</td>
+				</tr>
+				<tr>
+					<td><label for="text">introduction</label></td>
+					<td><textarea id="text" name="text" cols="28" rows="5"></textarea></td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<button type="submit">submit</button>
+						<button type="reset">reset</button>
+					</td>
+
+				</tr>
+			</tbody>
+		</table>
+	</form>
+
+
+
+	<script>
+		const regID = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z]){4,13}$/;
+
+		// 		const regPW = /^[A-Za-z\d@#$%^&*()\-_=+{};:,<.>/?[\]\\|~`!]{4,13}$/;
+		const regPW = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z]){4,13}$/;
+		const regEmail = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
+
+		const regPhnNum1 = /^(010|011|017|018|019)/;
+		
+		const f = document.forms["join"];
+		
+		
+		const validate = ()=>{
+			if (!regID.test(f.id.value)){
+				window.alert("ID가 잘못 됨");
+				return false;
+			}
+			else if(!regPW.test(f.pw.value)){
+				window.alert("비밀번호가 잘못 됨");
+				return false;
+			}
+			else if(f.pw.value!==f.pw_ch.value){
+				window.alert("비밀번호가 서로 맞지 않음");
+				return false;
+			}
+			else if(!regPhnNum1.test(f.tel_num1.value)){
+				window.alert("전화번호가 잘못 됨");
+				return false;
+			}
+			else if(!regEmail.test(f.email.value)){
+				window.alert("이메일이 잘못 됨");
+				return false;
+			}
+			else{
+				return true;
+			}
+		}
+
+		$(document).ready(function() {
+			$("#birthday").datepicker({
+				dateFormat : "yy-mm-dd",
+				changeMonth : true,
+				changeYear : true,
+				yearRange : "-100:+0",
+				showAnim : "slideDown",
+				maxDate : 0
+
+			});
+		});
+	</script>
+</body>
+</html>
